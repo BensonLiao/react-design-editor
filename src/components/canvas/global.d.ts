@@ -6,6 +6,7 @@ declare module 'fabric/fabric-impl' {
 	// Common
 	class Gif {}
 	class Arrow {}
+	class DirectionalLine {}
 	// Element
 	class Iframe {}
 	class Chart {}

@@ -3,7 +3,7 @@ import { v4 } from 'uuid';
 
 import Handler from './Handler';
 import { FabricEvent, FabricObject } from '../utils';
-import { Arrow, Line } from '../objects';
+import { Arrow, Line, DirectionalLine } from '../objects';
 
 class DrawingHandler {
 	handler: Handler;
@@ -268,6 +268,91 @@ class DrawingHandler {
 				id,
 				points,
 				type: 'line',
+				stroke: 'rgba(0, 0, 0, 1)',
+				strokeWidth: 3,
+				opacity: 1,
+				objectCaching: !this.handler.editable,
+				name: 'New line',
+				superType: 'drawing',
+			};
+			this.handler.add(option, false);
+			this.handler.pointArray = [];
+			this.handler.activeLine = null;
+			this.handler.interactionHandler.selection();
+		},
+	};
+
+	directionalLine = {
+		init: () => {
+			this.handler.interactionHandler.drawing('directionalLine');
+			this.handler.pointArray = [];
+			this.handler.activeLine = null;
+		},
+		finish: () => {
+			this.handler.pointArray.forEach(point => {
+				this.handler.canvas.remove(point);
+			});
+			this.handler.canvas.remove(this.handler.activeLine);
+			this.handler.pointArray = [];
+			this.handler.activeLine = null;
+			this.handler.canvas.renderAll();
+			this.handler.interactionHandler.selection();
+		},
+		addPoint: (opt: FabricEvent) => {
+			const { absolutePointer } = opt;
+			const { x, y } = absolutePointer;
+			const circle = new fabric.Circle({
+				radius: 3,
+				fill: '#ffffff',
+				stroke: '#333333',
+				strokeWidth: 0.5,
+				left: x,
+				top: y,
+				selectable: false,
+				hasBorders: false,
+				hasControls: false,
+				originX: 'center',
+				originY: 'center',
+				hoverCursor: 'pointer',
+			});
+			if (!this.handler.pointArray.length) {
+				circle.set({
+					fill: 'red',
+				});
+			}
+			const points = [x, y, x, y];
+			this.handler.activeLine = new DirectionalLine(points, {
+				strokeWidth: 2,
+				fill: '#999999',
+				stroke: '#999999',
+				originX: 'center',
+				originY: 'center',
+				selectable: false,
+				hasBorders: false,
+				hasControls: false,
+				evented: false,
+			});
+			this.handler.activeLine.set({
+				class: 'directionalLine',
+			});
+			this.handler.pointArray.push(circle);
+			this.handler.canvas.add(this.handler.activeLine);
+			this.handler.canvas.add(circle);
+		},
+		generate: (opt: FabricEvent) => {
+			const { absolutePointer } = opt;
+			const { x, y } = absolutePointer;
+			let points = [] as number[];
+			const id = v4();
+			this.handler.pointArray.forEach(point => {
+				points = points.concat(point.left, point.top, x, y);
+				this.handler.canvas.remove(point);
+			});
+			this.handler.canvas.remove(this.handler.activeLine);
+			const option = {
+				id,
+				points,
+				type: 'directionalLine',
 				stroke: 'rgba(0, 0, 0, 1)',
 				strokeWidth: 3,
 				opacity: 1,

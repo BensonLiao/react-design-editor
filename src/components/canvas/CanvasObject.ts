@@ -12,6 +12,7 @@ import {
 	CurvedLink,
 	OrthogonalLink,
 	Line,
+	DirectionalLine,
 	Cube,
 } from './objects';
 import { FabricObject } from './utils';
@@ -66,6 +67,9 @@ const CanvasObject: CanvasObjectSchema = {
 	},
 	line: {
 		create: ({ points, ...option }: { points: any }) => new Line(points, option),
+	},
+	directionalLine: {
+		create: ({ points, ...option }: { points: any }) => new DirectionalLine(points, option),
 	},
 	arrow: {
 		create: ({ points, ...option }: { points: any }) => new Arrow(points, option),

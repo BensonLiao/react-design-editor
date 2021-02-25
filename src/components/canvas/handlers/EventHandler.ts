@@ -413,6 +413,12 @@ class EventHandler {
 				} else {
 					this.handler.drawingHandler.line.addPoint(event);
 				}
+			} else if (this.handler.interactionMode === 'directionalLine') {
+				if (this.handler.pointArray.length && this.handler.activeLine) {
+					this.handler.drawingHandler.directionalLine.generate(event);
+				} else {
+					this.handler.drawingHandler.directionalLine.addPoint(event);
+				}
 			} else if (this.handler.interactionMode === 'arrow') {
 				if (this.handler.pointArray.length && this.handler.activeLine) {
 					this.handler.drawingHandler.arrow.generate(event);
@@ -463,6 +469,12 @@ class EventHandler {
 			}
 		} else if (this.handler.interactionMode === 'line') {
 			if (this.handler.activeLine && this.handler.activeLine.class === 'line') {
+				const pointer = this.handler.canvas.getPointer(event.e);
+				this.handler.activeLine.set({ x2: pointer.x, y2: pointer.y });
+			}
+			this.handler.canvas.requestRenderAll();
+		} else if (this.handler.interactionMode === 'directionalLine') {
+			if (this.handler.activeLine && this.handler.activeLine.class === 'directionalLine') {
 				const pointer = this.handler.canvas.getPointer(event.e);
 				this.handler.activeLine.set({ x2: pointer.x, y2: pointer.y });
 			}
@@ -763,6 +775,8 @@ class EventHandler {
 					this.handler.drawingHandler.polygon.finish();
 				} else if (this.handler.interactionMode === 'line') {
 					this.handler.drawingHandler.line.finish();
+				} else if (this.handler.interactionMode === 'directionalLine') {
+					this.handler.drawingHandler.directionalLine.finish();
 				} else if (this.handler.interactionMode === 'arrow') {
 					this.handler.drawingHandler.arrow.finish();
 				} else if (this.handler.interactionMode === 'link') {

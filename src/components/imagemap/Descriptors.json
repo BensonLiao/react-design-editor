@@ -164,6 +164,19 @@
 			}
 		},
 		{
+			"name": "Directional Line",
+			"description": "",
+			"type": "drawing",
+			"icon": {
+				"prefix": "fas",
+				"name": "minus"
+			},
+			"option": {
+				"type": "directionalLine",
+				"name": "New directional line"
+			}
+		},
+		{
 			"name": "Arrow",
 			"description": "",
 			"type": "drawing",

@@ -123,6 +123,8 @@ class ImageMapItems extends Component {
 			}
 			if (item.option.type === 'line') {
 				canvasRef.handler.drawingHandler.line.init();
+			} else if (item.option.type === 'directionalLine') {
+				canvasRef.handler.drawingHandler.directionalLine.init();
 			} else if (item.option.type === 'arrow') {
 				canvasRef.handler.drawingHandler.arrow.init();
 			} else {
