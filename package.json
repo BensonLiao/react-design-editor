@@ -23,7 +23,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/salgum1114/react-design-editor.git"
+		"url": "git+https://github.com/BensonLiao/react-design-editor.git"
 	},
 	"keywords": [
 		"React.js",
