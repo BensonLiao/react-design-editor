@@ -20,7 +20,7 @@ module.exports = {
 		// entry에 존재하는 app.js, vendor.js로 뽑혀 나온다.
 		path: path.resolve(__dirname, 'dist'),
 		filename: '[name].js',
-		library: `${pkg.name}.js`,
+		library: pkg.name,
 		libraryTarget: 'umd',
 		umdNamedDefine: true,
 		publicPath: './',
