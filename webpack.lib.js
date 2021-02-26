@@ -22,7 +22,6 @@ module.exports = {
 		filename: '[name].js',
 		library: pkg.name,
 		libraryTarget: 'umd',
-		umdNamedDefine: true,
 		publicPath: './',
 	},
 	module: {
