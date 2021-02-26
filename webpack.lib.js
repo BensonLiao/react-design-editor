@@ -13,8 +13,8 @@ const plugins = [
 module.exports = {
 	mode: 'production',
 	entry: {
-		[pkg.name]: ['@babel/polyfill', path.resolve(__dirname, 'src/components/canvas/index.tsx')],
-		[`${pkg.name}.min`]: ['@babel/polyfill', path.resolve(__dirname, 'src/components/canvas/index.tsx')],
+		[pkg.name]: path.resolve(__dirname, 'src/components/canvas/index.tsx'),
+		[`${pkg.name}.min`]: path.resolve(__dirname, 'src/components/canvas/index.tsx'),
 	},
 	output: {
 		// entry에 존재하는 app.js, vendor.js로 뽑혀 나온다.
